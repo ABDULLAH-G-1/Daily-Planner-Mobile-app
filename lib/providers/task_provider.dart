@@ -24,61 +24,66 @@ class TaskProvider extends ChangeNotifier {
   List<Task> get tasks {
     if (_taskBox == null) return [];
 
-    // List the all tasks
+    // List all tasks
     final allTasks = _taskBox!.values.toList();
 
-    // Sort tha tasks (Newest First)
+    // Sort tasks (Newest First)
     allTasks.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-    // if search bar is empty :show all the tasks
+    // Search Logic
     if (_searchQuery.isEmpty) {
       return allTasks;
     } else {
-      //other wise show the searched tasks
       return allTasks.where((task) {
         final query = _searchQuery.toLowerCase();
         return task.title.toLowerCase().contains(query) ||
-            task.description.toLowerCase().contains(query);
+            task.description.toLowerCase().contains(query) ||
+            task.category.toLowerCase().contains(query); // Category search (Bonus)
       }).toList();
     }
   }
 
-
-
-  // 2. Add Task
-  Future<void> addTask(String title, String desc, String priority) async {
+  // 2. Add Task (Updated with Category & DueDate)
+  Future<void> addTask(String title, String desc, String priority, String category, DateTime? dueDate) async {
     final newTask = Task(
       title: title,
       description: desc,
       priority: priority,
       createdAt: DateTime.now(),
       isCompleted: false,
+      category: category,
+      dueDate: dueDate,
     );
     await _taskBox?.add(newTask);
-    notifyListeners(); // UI update
+    notifyListeners();
   }
 
   // 3. Delete Task
   Future<void> deleteTask(Task task) async {
-    await task.delete(); // Hive built-in delete function
+    await task.delete();
     notifyListeners();
   }
-  // 5. Update Task Details (Edit)
-  Future<void> updateTask(Task task, String newTitle, String newDesc, String newPriority) async {
+
+  // 4. Update Task Details (Updated with Category & DueDate)
+  Future<void> updateTask(Task task, String newTitle, String newDesc, String newPriority, String newCategory, DateTime? newDate) async {
     task.title = newTitle;
     task.description = newDesc;
     task.priority = newPriority;
+    task.category = newCategory;
+    task.dueDate = newDate;
+
     await task.save();
     notifyListeners();
   }
 
-  // 4. Update Status (For Tick mark )
+  // 5. Update Status (Tick mark)
   Future<void> toggleTaskStatus(Task task) async {
     task.isCompleted = !task.isCompleted;
-    await task.save(); // Save changes
+    await task.save();
     notifyListeners();
   }
-  // 5. Search Function
+
+  // 6. Search Function
   void searchTasks(String query) {
     _searchQuery = query;
     notifyListeners();

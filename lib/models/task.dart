@@ -1,24 +1,30 @@
 import 'package:hive/hive.dart';
 
-
 part 'task.g.dart';
 
 @HiveType(typeId: 0)
 class Task extends HiveObject {
   @HiveField(0)
-  String title;       // Task name
+  String title;
 
   @HiveField(1)
-  String description; // Details (for Long text handling )
+  String description;
 
   @HiveField(2)
-  bool isCompleted;   // Completed or Pending
+  bool isCompleted;
 
   @HiveField(3)
-  DateTime createdAt; // Sorting  (Newest first)
+  DateTime createdAt;
 
   @HiveField(4)
-  String priority;    // perority: 'Low', 'Medium', 'High'
+  String priority;
+
+  // --- NEW FEATURES FOR TASK 2 ---
+  @HiveField(5)
+  String category;    // e.g., Work, Personal, Study
+
+  @HiveField(6)
+  DateTime? dueDate;  // Optional deadline
 
   Task({
     required this.title,
@@ -26,5 +32,7 @@ class Task extends HiveObject {
     this.isCompleted = false,
     required this.createdAt,
     this.priority = 'Low',
+    this.category = 'General', // Default category
+    this.dueDate,
   });
 }
