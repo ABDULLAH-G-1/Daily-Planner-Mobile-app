@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Image.asset('assets/images/logo.png', width: 180, height: 180),
             const SizedBox(height: 20),
             const Text(
-              "Smart Task Manager",
+              "Daily Planner",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

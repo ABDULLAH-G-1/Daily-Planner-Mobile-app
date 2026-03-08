@@ -17,9 +17,11 @@ class TaskDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Task Details"),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
         elevation: 0,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.white
+            : Colors.black,
         actions: [
           // Edit Button
           IconButton(
@@ -51,8 +53,18 @@ class TaskDetailsScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildInfoChip("Priority", task.priority, Icons.flag, Colors.orange),
-                _buildInfoChip("Category", task.category, Icons.category, Colors.purple),
+                _buildInfoChip(
+                  "Priority",
+                  task.priority,
+                  Icons.flag,
+                  Colors.orange,
+                ),
+                _buildInfoChip(
+                  "Category",
+                  task.category,
+                  Icons.category,
+                  Colors.purple,
+                ),
               ],
             ),
             const SizedBox(height: 16),
@@ -61,10 +73,18 @@ class TaskDetailsScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildInfoChip("Due Date", _formatDate(task.dueDate), Icons.calendar_today, Colors.blue),
-                _buildInfoChip("Status", task.isCompleted ? "Completed" : "Pending",
-                    task.isCompleted ? Icons.check_circle : Icons.pending,
-                    task.isCompleted ? Colors.green : Colors.grey),
+                _buildInfoChip(
+                  "Due Date",
+                  _formatDate(task.dueDate),
+                  Icons.calendar_today,
+                  Colors.blue,
+                ),
+                _buildInfoChip(
+                  "Status",
+                  task.isCompleted ? "Completed" : "Pending",
+                  task.isCompleted ? Icons.check_circle : Icons.pending,
+                  task.isCompleted ? Colors.green : Colors.grey,
+                ),
               ],
             ),
 
@@ -76,11 +96,17 @@ class TaskDetailsScreen extends StatelessWidget {
             // Description
             const Text(
               "Description",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey),
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+              ),
             ),
             const SizedBox(height: 10),
             Text(
-              task.description.isEmpty ? "No description provided." : task.description,
+              task.description.isEmpty
+                  ? "No description provided."
+                  : task.description,
               style: const TextStyle(fontSize: 16, height: 1.5),
             ),
           ],
@@ -90,7 +116,12 @@ class TaskDetailsScreen extends StatelessWidget {
   }
 
   // Helper widget design ke liye
-  Widget _buildInfoChip(String label, String value, IconData icon, Color color) {
+  Widget _buildInfoChip(
+    String label,
+    String value,
+    IconData icon,
+    Color color,
+  ) {
     return Expanded(
       child: Card(
         elevation: 0,
@@ -105,11 +136,24 @@ class TaskDetailsScreen extends StatelessWidget {
                 children: [
                   Icon(icon, size: 16, color: color),
                   const SizedBox(width: 6),
-                  Text(label, style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.bold)),
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: color,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text(value, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
           ),
         ),

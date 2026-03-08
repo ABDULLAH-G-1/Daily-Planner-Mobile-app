@@ -111,9 +111,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(isEdit ? "Edit Task" : "Add New Task"),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
         elevation: 0,
+        backgroundColor: Colors.transparent, // Ab ye theme ke hisaab se khud color change karega
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
