@@ -13,15 +13,22 @@ class TaskTile extends StatelessWidget {
     required this.onDelete,
   });
 
+  // Date format karne ka helper
+  String _formatDate(DateTime? date) {
+    if (date == null) return "No Date";
+    return "${date.day}/${date.month}"; // e.g., 12/8
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      elevation: 3,
+      elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
         contentPadding: const EdgeInsets.all(12),
-        // Leading: Checkbox for status
+
+        // Leading: Checkbox
         leading: Checkbox(
           value: task.isCompleted,
           onChanged: (val) => onStatusChanged(),
@@ -29,7 +36,7 @@ class TaskTile extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         ),
 
-        // Title & Description (Responsive & Long Text Handling)
+        // Title
         title: Text(
           task.title,
           style: TextStyle(
@@ -39,20 +46,35 @@ class TaskTile extends StatelessWidget {
             color: task.isCompleted ? Colors.grey : Colors.black87,
           ),
         ),
+
+        // Subtitle: Category, Date, aur Priority
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (task.description.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 4.0),
-                child: Text(
-                  task.description,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: Colors.grey[600]),
-                ),
-              ),
             const SizedBox(height: 8),
+
+            // Category aur Date Row
+            Row(
+              children: [
+                Icon(Icons.category, size: 14, color: Colors.purple[400]),
+                const SizedBox(width: 4),
+                Text(
+                  task.category,
+                  style: TextStyle(color: Colors.grey[700], fontSize: 13),
+                ),
+
+                const SizedBox(width: 16), // Spacing
+
+                Icon(Icons.calendar_today, size: 14, color: Colors.blue[400]),
+                const SizedBox(width: 4),
+                Text(
+                  _formatDate(task.dueDate),
+                  style: TextStyle(color: Colors.grey[700], fontSize: 13),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+
             // Priority Badge
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -85,7 +107,7 @@ class TaskTile extends StatelessWidget {
     );
   }
 
-  // Helper to choose color based on priority
+  // Helper function priority color ke liye
   Color _getPriorityColor(String priority) {
     switch (priority) {
       case 'High':
