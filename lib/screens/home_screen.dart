@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/task_provider.dart';
 import '../widgets/task_tile.dart';
 import 'add_task_screen.dart';
+import 'task_details_screen.dart'; // Ye naya import add kiya hai
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         foregroundColor: Colors.black,
-        title: Card( 
+        title: Card(
           elevation: 0,
           color: Colors.grey[100],
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -81,11 +82,11 @@ class HomeScreen extends StatelessWidget {
               final task = tasks[index];
               return GestureDetector(
                 onTap: () {
-                  // open screen in edit mode
+                  // Yahan change kiya hai: open screen in DETAILS mode
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AddTaskScreen(taskToEdit: task),
+                      builder: (context) => TaskDetailsScreen(task: task),
                     ),
                   );
                 },
