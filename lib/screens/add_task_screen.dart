@@ -147,9 +147,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       onChanged: (val) => setState(() => _selectedPriority = val!),
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  const SizedBox(height: 16),
                   Expanded(
-                    child: DropdownButtonFormField<String>(
+                    child: // Category Dropdown
+                    DropdownButtonFormField<String>(
                       value: _selectedCategory,
                       decoration: InputDecoration(
                         labelText: "Category",
