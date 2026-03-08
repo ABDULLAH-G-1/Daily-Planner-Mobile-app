@@ -24,23 +24,28 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // Ye line add karo: Neon logo ke liye dark background
+      backgroundColor: const Color(0xFF121212),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/logo.png', width: 180, height: 180),
+            // Logo image
+            Image.asset(
+              'assets/app_icon.png',
+              width: 150, // Size set kar lena
+            ),
             const SizedBox(height: 20),
+            // Optional: App Name
             const Text(
               "Daily Planner",
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 28,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1A237E),
+                color: Colors.white, // Text color white
+                letterSpacing: 2,
               ),
             ),
-            const SizedBox(height: 30),
-            const CircularProgressIndicator(color: Colors.blue),
           ],
         ),
       ),
